@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>May Tsai — Data Analyst</title>
+<meta name="ext-resource-dependency" content="uploads/Screenshot 2025-11-08 at 9.40.50 PM.png" data-resource-id="mayPhoto" />
+<meta name="ext-resource-dependency" content="May_Tsai_Resume.pdf" data-resource-id="mayResume" />
+<template id="__bundler_thumbnail" data-bg-color="#f0ead8">
+  <svg viewBox="0 0 560 350" xmlns="http://www.w3.org/2000/svg">
+    <rect width="560" height="350" fill="#f0ead8"/>
+    <rect x="20" y="20" width="240" height="310" rx="3" fill="#fdfaf2" stroke="#1a1a1a" stroke-width="1"/>
+    <rect x="280" y="20" width="260" height="310" rx="3" fill="#fdfaf2" stroke="#1a1a1a" stroke-width="1"/>
+    <rect x="35" y="35" width="210" height="120" rx="2" fill="#e6b800" opacity="0.3"/>
+    <text x="35" y="185" font-family="serif" font-size="32" fill="#1a1a1a" font-style="italic">May</text>
+    <text x="35" y="220" font-family="serif" font-size="32" fill="#1a1a1a">Tsai</text>
+  </svg>
+</template>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f5f1ea;
+  --card-bg: #faf8f3;
+  --card-border: #0a0a0a;
+  --text: #0a0a0a;
+  --text-muted: #7a7570;
+  --text-light: #c4bfb8;
+  --accent: #0a0a0a;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono: 'DM Mono', 'Courier New', monospace;
+  --card-shadow: 0 10px 40px rgba(0,0,0,0.10);
+  --card-shadow-drag: 0 22px 60px rgba(0,0,0,0.18);
+}
+[data-theme="noir"] {
+  --bg: #0e0d0c;
+  --card-bg: #1a1916;
+  --card-border: #2e2c28;
+  --text: #f0ece3;
+  --text-muted: #7a7568;
+  --text-light: #2e2c28;
+  --accent: #d4a853;
+  --card-shadow: 0 10px 40px rgba(0,0,0,0.55);
+  --card-shadow-drag: 0 22px 60px rgba(0,0,0,0.75);
+}
+[data-theme="terracotta"] {
+  --bg: #ede5db;
+  --card-bg: #f8f2ea;
+  --card-border: #c8b8a4;
+  --text: #1e1610;
+  --text-muted: #8a7060;
+  --text-light: #d4c4b4;
+  --accent: #b85c38;
+  --card-shadow: 0 10px 40px rgba(100,50,20,0.12);
+  --card-shadow-drag: 0 22px 60px rgba(100,50,20,0.20);
+}
+[data-theme="zine-dark"] {
+  --bg: #111008;
+  --card-bg: #1c1a0f;
+  --card-border: #2a2710;
+  --text: #f5f0e0;
+  --text-muted: #8a8060;
+  --text-light: #2a2710;
+  --accent: #FFE500;
+  --card-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  --card-shadow-drag: 0 22px 60px rgba(0,0,0,0.8);
+}
+[data-theme="signal"] {
+  --bg: #f0f3f8;
+  --card-bg: #ffffff;
+  --card-border: #dde3ee;
+  --text: #0d1117;
+  --text-muted: #7080a0;
+  --text-light: #dde3ee;
+  --accent: oklch(0.50 0.18 250);
+  --card-shadow: 0 10px 40px rgba(60,80,140,0.10);
+  --card-shadow-drag: 0 22px 60px rgba(60,80,140,0.18);
+}
+
+:root { --grid-line: rgba(0,0,0,0.07); }
+[data-theme="noir"] { --grid-line: rgba(255,255,255,0.04); }
+[data-theme="terracotta"] { --grid-line: rgba(100,60,30,0.08); }
+[data-theme="signal"] { --grid-line: rgba(60,80,140,0.07); }
+[data-theme="zine"] { --grid-line: rgba(0,0,0,0.12); }
+[data-theme="zine-dark"] { --grid-line: rgba(255,255,255,0.05); }
+
+html, body {
+  width: 100%; height: 100%;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--text);
+  font-family: var(--mono);
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color 0.5s ease;
+}
+
+#stage {
+  width: 100vw; height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+#deck {
+  position: relative;
+  width: 680px;
+  height: 420px;
+}
+
+/* ── CARDS ── */
+.card {
+  position: absolute; inset: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  cursor: grab;
+  transition: transform 0.45s cubic-bezier(0.22,1,0.36,1), opacity 0.4s ease, box-shadow 0.3s ease, background 0.5s ease, border-color 0.5s ease;
+  will-change: transform;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:active { cursor: grabbing; }
+.card[data-pos="1"] { transform: translate(6px, 6px) rotate(0.8deg); z-index: 2; }
+.card[data-pos="2"] { transform: translate(12px, 12px) rotate(1.6deg); z-index: 1; }
+.card[data-pos="0"] { z-index: 10; box-shadow: var(--card-shadow); }
+.card.dragging { transition: none !important; box-shadow: var(--card-shadow-drag) !important; }
+.card.fly-left  { transform: translateX(-140vw) rotate(-14deg) !important; opacity: 0 !important; }
+.card.fly-right { transform: translateX(140vw)  rotate( 14deg) !important; opacity: 0 !important; }
+
+/* ── CARD HEADER (thin bar at top) ── */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--text-light);
+  flex-shrink: 0;
+}
+.card-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.label-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.card-counter {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+}
+
+/* ── CARD BODY ── */
+.card-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* Left panel */
+.panel-left {
+  flex: 0 0 44%;
+  padding: 22px 24px;
+  border-right: 1px solid var(--text-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.panel-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+/* Right panel */
+.panel-right {
+  flex: 1;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── INTRO ── */
+.intro-name {
+  font-family: var(--serif);
+  font-size: 44px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+.intro-name em { font-style: italic; color: var(--text-muted); }
+.intro-title {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 10px;
+}
+.intro-photo {
+  width: 60px; height: 60px;
+  border-radius: 2px;
+  background: var(--text-light);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+}
+.intro-photo svg { width: 100%; height: 100%; }
+.intro-photo-label {
+  position: absolute; inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 6px;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  line-height: 1.4;
+  text-align: center;
+}
+.intro-links {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.intro-links a {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 1px;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+.intro-links a:hover { opacity: 0.55; }
+.intro-bio {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-weight: 300;
+  flex: 1;
+}
+.intro-bio strong { color: var(--text); font-weight: 500; }
+.hl {
+  background: rgba(184, 92, 56, 0.13);
+  padding: 0 3px;
+  border-radius: 2px;
+  color: var(--text);
+  font-weight: 500;
+}
+.hl-a {
+  background: rgba(184, 92, 56, 0.13);
+  padding: 0 3px;
+  border-radius: 2px;
+  color: var(--text);
+  font-weight: 500;
+}
+[data-theme="noir"] .hl { background: rgba(212,168,83,0.15); text-decoration-color: rgba(212,168,83,0.5); }
+[data-theme="noir"] .hl-a { background: rgba(212,168,83,0.15); }
+[data-theme="signal"] .hl { background: oklch(0.50 0.18 250 / 0.10); text-decoration-color: oklch(0.50 0.18 250 / 0.5); }
+[data-theme="signal"] .hl-a { background: oklch(0.50 0.18 250 / 0.10); }
+[data-theme="editorial"] .hl { background: rgba(0,0,0,0.07); text-decoration-color: rgba(0,0,0,0.35); }
+[data-theme="editorial"] .hl-a { background: rgba(0,0,0,0.07); }
+[data-theme="zine"] .proj-num { color: rgba(230,184,0,0.4); }
+[data-theme="zine"] .hl { background: rgba(230,184,0,0.25); text-decoration-color: rgba(230,184,0,0.7); }
+[data-theme="zine"] .hl-a { background: rgba(230,184,0,0.25); font-weight: 500; }
+[data-theme="zine"] .skill-tag { background: rgba(230,184,0,0.2); border-color: rgba(230,184,0,0.5); }
+[data-theme="zine"] .exp-item { border-left: 2px solid rgba(230,184,0,0.6); padding-left: 10px; }
+[data-theme="zine"] .final-email { border-bottom: none; background: rgba(230,184,0,0.2); padding: 2px 6px; border-radius: 2px; }
+[data-theme="zine-dark"] .proj-num { color: rgba(255,229,0,0.25); }
+[data-theme="zine-dark"] .hl { background: rgba(255,229,0,0.2); font-weight:500; }
+[data-theme="zine-dark"] .hl-a { background: rgba(255,229,0,0.15); font-weight: 500; }
+[data-theme="zine-dark"] .skill-tag { background: rgba(255,229,0,0.1); border-color: rgba(255,229,0,0.3); }
+[data-theme="zine-dark"] .exp-item { border-left: 2px solid rgba(255,229,0,0.4); padding-left: 10px; }
+[data-theme="zine-dark"] .exp-period { color: #FFE500; }
+[data-theme="zine-dark"] .final-email { border-bottom: none; background: rgba(255,229,0,0.15); padding: 2px 6px; border-radius: 2px; }
+[data-theme="zine-dark"] .dot.on { background: #FFE500; }
+.intro-location {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 12px;
+}
+
+/* ── EXPERIENCE ── */
+.exp-big {
+  font-family: var(--serif);
+  font-size: 40px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+.exp-big em { font-style: italic; color: var(--text); }
+.exp-years {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+.exp-list { display: flex; flex-direction: column; gap: 0; flex: 1; }
+.exp-item {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--text-light);
+}
+.exp-item:last-child { border-bottom: none; }
+.exp-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.exp-company { font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text); }
+.exp-period {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  color: var(--accent);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.exp-role {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── SKILLS ── */
+.skills-big {
+  font-family: var(--serif);
+  font-size: 38px;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+.skills-big em { font-style: italic; color: var(--text); }
+.think-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:6px 18px}
+.think-step{border-top:1px solid var(--text-light);padding-top:6px}
+.think-num{font-family:var(--mono);font-size:8.5px;letter-spacing:0.14em;color:var(--text-muted);margin-bottom:3px;display:flex;justify-content:space-between}
+.think-num span{color:var(--text)}
+.think-title{font-family:var(--serif);font-size:13px;line-height:1.15;color:var(--text);margin-bottom:3px}
+.think-desc{font-size:9.5px;line-height:1.4;color:var(--text-muted);text-wrap:pretty}
+@media (max-width:720px){.think-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:5px}.think-step{padding-top:4px}.think-title{font-size:11.5px;margin-bottom:1px}.think-desc{font-size:8.5px;line-height:1.3}.think-num{margin-bottom:1px}}
+.topnav-item{white-space:nowrap}
+.skills-count {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+.skill-groups { display: flex; flex-direction: column; gap: 5px; flex: 1; overflow: hidden; }
+.skill-group-label {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 3px; }
+.skill-tag {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  padding: 2px 6px;
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  border-radius: 2px;
+}
+[data-theme="signal"] .skill-tag { border-color: var(--text-light); }
+
+/* ── PROJECTS ── */
+.proj-num {
+  font-family: var(--serif);
+  font-size: 100px;
+  line-height: 1;
+  color: var(--text-light);
+  font-style: italic;
+  letter-spacing: -0.04em;
+  margin-bottom: 0;
+  margin-top: -8px;
+  transition: color 0.5s;
+}
+.proj-title {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--text);
+  margin-top: 4px;
+}
+.proj-sub {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+.proj-takeaway {
+  font-family: var(--mono);
+  font-size: 9px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--text-light);
+}
+.proj-approach{font-family:var(--mono);font-size:9.5px;line-height:1.45;color:var(--text);margin-top:40px;padding-top:8px;border-top:1px solid var(--text-light);display:flex;flex-direction:column;gap:4px}
+.proj-approach .tk-label{display:block;font-size:7.5px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+.proj-approach+.proj-kpis{margin-top:auto}
+.ap-row{display:grid;grid-template-columns:80px minmax(0,1fr);gap:8px}
+.ap-k{font-weight:700;text-transform:uppercase;letter-spacing:0.08em;font-size:8.5px}
+.proj-takeaway .tk-label {
+  display: block;
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.proj-co {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: auto;
+  padding-top: 10px;
+}
+.proj-desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  font-weight: 300;
+  flex: 1;
+  overflow: hidden;
+}
+.proj-kpis {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--text-light);
+  margin-top: 8px;
+}
+.kpi { flex: 1; padding-right: 10px; border-right: 1px solid var(--text-light); margin-right: 10px; min-width: 0; }
+.kpi:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.kpi-val {
+  font-family: var(--serif);
+  font-size: 17px;
+  color: var(--accent);
+  font-style: italic;
+  margin-bottom: 2px;
+}
+.kpi-label {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.proj-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 8px; }
+.proj-tag {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--text-light);
+  padding: 2px 6px;
+  color: var(--text-muted);
+  border-radius: 2px;
+}
+
+/* ── FINAL ── */
+.final-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.final-headline {
+  font-family: var(--serif);
+  font-size: 42px;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+.final-headline em { font-style: italic; color: var(--text-muted); }
+.final-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.final-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.85;
+  font-weight: 300;
+}
+.final-email {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  text-decoration: none;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+.final-email:hover { opacity: 0.55; }
+.final-circle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+.final-circle::after {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── NAV ── */
+#nav {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 100;
+}
+.nav-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  color: var(--text);
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.5s;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-btn:hover { background: var(--text); color: var(--card-bg); }
+.dots { display: flex; gap: 5px; align-items: center; }
+
+/* ── TOP INDEX BAR ── */
+.topnav-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--card-bg);
+  border-bottom: 1.5px solid var(--text);
+}
+.topnav-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 1.5px; right: 0;
+  width: 40px;
+  background: linear-gradient(to right, transparent, var(--card-bg));
+  pointer-events: none;
+  opacity: 0;
+}
+@media (max-width: 720px) {
+  .topnav-wrap::after { opacity: 1; }
+}
+[data-theme="zine"] .topnav-wrap { border-bottom-color: oklch(0.18 0.02 60); }
+#topnav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 14px 28px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+#topnav::-webkit-scrollbar { display: none; }
+.topnav-brand {
+  font-weight: 700;
+  color: var(--text);
+  margin-right: 28px;
+  flex-shrink: 0;
+  letter-spacing: 0.22em;
+}
+.topnav-items {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex: 1;
+}
+.topnav-item {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  scroll-snap-align: start;
+  transition: color 0.2s ease;
+  border-right: 1px solid var(--text-light);
+}
+.topnav-item:last-child { border-right: none; }
+.topnav-item:hover { color: var(--text); }
+.topnav-item.on {
+  color: var(--text);
+  font-weight: 700;
+}
+.topnav-item .num { opacity: 0.5; font-size: 8px; }
+.topnav-item.on .num { opacity: 1; }
+
+[data-theme="zine"] .topnav-item.on {
+  background: oklch(0.78 0.18 88);
+  color: oklch(0.18 0.02 60);
+}
+[data-theme="zine"] #topnav { border-bottom-color: oklch(0.18 0.02 60); }
+
+@media (max-width: 720px) {
+  #topnav { padding: 10px 14px; font-size: 8px; }
+  .topnav-brand { margin-right: 14px; font-size: 9px; }
+  .topnav-item { padding: 6px 10px; }
+}
+#tabs {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: none;
+}
+#tabs-left {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  pointer-events: none;
+}
+#tabs-left .tab {
+  border: 1.5px solid var(--text);
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  padding: 9px 10px 9px 6px;
+  transform: rotate(0deg);
+  writing-mode: vertical-rl;
+  box-shadow: 2px 2px 0 var(--text-light);
+}
+#tabs-left .tab:hover {
+  padding-right: 14px;
+  padding-left: 6px;
+  box-shadow: 3px 3px 0 var(--text);
+}
+#tabs-left .tab.on {
+  padding-right: 14px;
+  padding-left: 6px;
+  box-shadow: 3px 3px 0 var(--text-muted);
+}
+[data-theme="zine"] #tabs-left .tab.on {
+  box-shadow: 3px 3px 0 oklch(0.18 0.02 60);
+}
+.tab {
+  pointer-events: auto;
+  background: var(--card-bg);
+  border: 1.5px solid var(--text);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  padding: 9px 6px 9px 10px;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+  cursor: pointer;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  transition: all 0.2s ease;
+  margin-bottom: -1.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  box-shadow: -2px 2px 0 var(--text-light);
+}
+.tab:hover {
+  padding-left: 14px;
+  background: var(--card-bg);
+  box-shadow: -3px 3px 0 var(--text);
+}
+.tab.on {
+  color: var(--card-bg);
+  background: var(--text);
+  font-weight: 700;
+  padding-left: 14px;
+  border-color: var(--text);
+  box-shadow: -3px 3px 0 var(--text-muted);
+}
+.tab .tab-num {
+  font-size: 7.5px;
+  opacity: 0.6;
+  letter-spacing: 0.08em;
+}
+.tab.on .tab-num { opacity: 1; color: var(--card-bg); }
+
+[data-theme="zine"] .tab.on {
+  background: oklch(0.78 0.18 88);
+  color: oklch(0.18 0.02 60);
+  border-color: oklch(0.18 0.02 60);
+  box-shadow: -3px 3px 0 oklch(0.18 0.02 60);
+}
+[data-theme="zine"] .tab.on .tab-num { color: oklch(0.18 0.02 60); }
+.tab.on .tab-num { opacity: 1; }
+
+[data-theme="zine"] .tab.on {
+  background: oklch(0.78 0.18 88);
+  color: oklch(0.18 0.02 60);
+  border-color: oklch(0.18 0.02 60);
+}
+[data-theme="zine"] .tab.on .tab-num { color: oklch(0.18 0.02 60); }
+
+@media (max-width: 720px) {
+  #tabs, #tabs-left { display: none; }
+}
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--text-light);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.dot.on { background: var(--accent); width: 18px; border-radius: 3px; }
+
+#hint {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  transition: opacity 1s ease;
+}
+#hint.gone { opacity: 0; pointer-events: none; }
+
+/* ── TWEAKS PANEL ── */
+#tweaks-panel {
+  display: none;
+  position: fixed;
+  bottom: 76px;
+  right: 20px;
+  width: 226px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 18px;
+  z-index: 200;
+  box-shadow: var(--card-shadow);
+}
+#tweaks-panel.visible { display: block; }
+.tweaks-title {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tweaks-close {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+.tweak-label {
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.theme-options { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.theme-opt {
+  padding: 7px 5px;
+  border: 1px solid var(--text-light);
+  border-radius: 2px;
+  cursor: pointer;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 7.5px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.theme-opt:hover { border-color: var(--accent); color: var(--accent); }
+.theme-opt.active { border-color: var(--accent); color: var(--accent); }
+.theme-swatch {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  #stage { padding-bottom: 90px; }
+  #nav { bottom: 20px; }
+  .card-body { flex-direction: column; }
+  .panel-left {
+    flex: 0 0 auto;
+    border-right: none;
+    border-bottom: 1px solid var(--text-light);
+    padding: 18px 22px 16px;
+  }
+  .panel-right { padding: 16px 22px 20px; flex: 1; }
+  .card-header { padding: 10px 20px; }
+  /* tighten oversized headlines on portrait */
+  .intro-name { font-size: 32px !important; line-height: 0.95 !important; }
+  .exp-big, .skills-big { font-size: 34px !important; line-height: 0.95 !important; }
+  .proj-num { font-size: 60px !important; line-height: 0.85 !important; }
+  .final-headline { font-size: 38px !important; line-height: 0.95 !important; }
+  /* mobile intro photo: small portrait, no cropping */
+  .panel-left > div > div[style*="aspect-ratio:1/1"] {
+    aspect-ratio: 4/5 !important;
+    width: 130px !important;
+    height: auto !important;
+    max-height: none;
+    margin: 0 0 12px !important;
+    border-radius: 4px !important;
+  }
+  .panel-left > div > div[style*="aspect-ratio:1/1"] img {
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+  /* tighter name on mobile so it doesn't crowd the bio */
+  .intro-name { font-size: 32px !important; }
+  .intro-title { font-size: 10px !important; }
+  .intro-location { font-size: 10px !important; }
+  /* intro3: emoji column → inline row on mobile */
+  .panel-right .intro-bio { padding-right: 0 !important; }
+  .panel-right > div[style*="position:absolute"] {
+    position: static !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    margin-top: 12px;
+    gap: 8px !important;
+  }
+}
+</style>
+</head>
+<body data-theme="noir">
+<div id="stage"><div id="deck"></div></div>
+<div class="topnav-wrap"><div id="topnav"></div></div>
+<div id="nav">
+  <button class="nav-btn" id="prevBtn">&#8592;</button>
+  <div class="dots" id="dots"></div>
+  <button class="nav-btn" id="nextBtn">&#8594;</button>
+</div>
+<div id="hint">Drag to explore &rarr;</div>
+
+<div id="tweaks-panel">
+  <div class="tweaks-title">
+    <span>Tweaks</span>
+    <button class="tweaks-close" id="tweaksClose">&#x2715;</button>
+  </div>
+  <div class="tweak-label">Design Theme</div>
+  <div class="theme-options">
+    <button class="theme-opt" data-t="editorial"><span class="theme-swatch" style="background:#0a0a0a"></span>Editorial</button>
+    <button class="theme-opt" data-t="noir"><span class="theme-swatch" style="background:#d4a853"></span>Noir</button>
+    <button class="theme-opt" data-t="terracotta"><span class="theme-swatch" style="background:#b85c38"></span>Terra</button>
+    <button class="theme-opt" data-t="signal"><span class="theme-swatch" style="background:oklch(0.50 0.18 250)"></span>Signal</button>
+    <button class="theme-opt" data-t="zine"><span class="theme-swatch" style="background:#e6b800"></span>Zine</button>
+    <button class="theme-opt" data-t="zine-dark"><span class="theme-swatch" style="background:#FFE500;border:1px solid #111008"></span>Zine Dark</button>
+  </div>
+</div>
+
+<script>
+var TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "theme": "zine"
+}/*EDITMODE-END*/;
+
+var cards = [
+  { type: 'intro' },
+  { type: 'exp', items: [
+    { co: 'Infillion Catalina', role: 'Sr. Data Analyst → Analytics Consultant', period: '2022–Now' },
+    { co: 'Aaron Equipment Co.', role: 'Data Analyst', period: '2021–2022' },
+    { co: 'University of Illinois Urbana-Champaign', role: 'M.S. Business Analytics', period: '2021–2022' }
+  ]},
+  { type: 'skills' },
+  { type: 'think' },
+  { type: 'proj', n: '01', co: 'Infillion Catalina',
+    title: 'Turning Customer Behavior Into Growth', story: 'case-study-01.html', fs: '10px;line-height:1.6;flex:none',
+    sub: 'Customer transaction data → behavioral insight → targeted strategy → measurable impact',
+    desc: 'I analyzed customer transaction behavior to identify an opportunity for more <span class="hl">targeted customer engagement</span>. I translated the behavioral insights into a defined target audience, estimated the opportunity and investment, and partnered with cross-functional teams to <span class="hl">activate and measure</span> the strategy.',
+    kpis: [{ v: '$50K', l: 'Incremental Revenue' }, { v: '2.5:1', l: 'ROAS' }],
+    approach: [['Discover', 'Identify behavioral patterns and growth opportunities'], ['Target', 'Define the highest-opportunity customer segments'], ['Activate', 'Translate insights into a targeted strategy'], ['Measure', 'Evaluate incremental impact and inform next steps']] },
+  { type: 'proj', n: '02', co: 'Infillion Catalina',
+    title: 'Testing What Drives Customer Behavior', story: 'case-study-02.html', fs: '10px;line-height:1.6;flex:none',
+    sub: 'Business question → hypothesis → experiment → learning',
+    desc: 'I led <span class="hl">end-to-end A/B testing</span> across the customer journey, partnering with Sales, Ops, and Product teams to define experiment strategies and success metrics. I analyzed customer response across test and control groups to understand <span class="hl">what drove behavior</span>, identify what worked, and inform future decisions.',
+    kpis: [{ v: '100+', l: 'A/B Tests' }, { v: '$10M+', l: 'Est. Incremental Impact' }],
+    approach: [['Hypothesize', 'Define the business question and testable hypothesis'], ['Design', 'Establish test/control groups and success metrics'], ['Measure', 'Analyze lift and customer response'], ['Learn', 'Translate results into recommendations and future experiments']] },
+  { type: 'proj', n: '03', co: 'Infillion Catalina',
+    title: 'Using Predictive Modeling to Prioritize Customers', story: 'case-study-03.html', fs: '10px;line-height:1.6;flex:none',
+    sub: 'Propensity modeling → lift analysis → customer prioritization → targeted strategy',
+    desc: 'I evaluated <span class="hl">propensity model outputs</span> to identify customers with the strongest likelihood of adopting a new product. I analyzed lift across customer segments and translated the findings into a <span class="hl">focused targeting strategy</span>, partnering with Business, Data Science, and Client teams to inform prioritization.',
+    kpis: [{ v: '4×', l: 'Lift Among Top 10% of Customers' }],
+    approach: [['Evaluate', 'Assess model outputs and lift across customer segments'], ['Identify', 'Find the highest-potential customer groups'], ['Prioritize', 'Translate predictive signals into customer prioritization'], ['Strategize', 'Inform a focused targeting approach']] },
+  { type: 'proj', n: '01', co: 'Personal Project',
+    link: 'https://github.com/maytsai/Reddit-Data-Pipeline-AWS',
+    title: 'Content Engagement Analytics Pipeline — Creator & Community Data Infrastructure',
+    desc: 'I built an <span class="hl">end-to-end ETL pipeline</span> that extracts near-real-time Reddit data via the Reddit API, orchestrates with Apache Airflow, stores in S3, transforms with AWS Glue and Athena, and loads into Redshift for analytics. Containerized with Docker.',
+    kpis: [{ v: 'End-to-end', l: 'ETL pipeline' }, { v: 'AWS', l: 'Cloud stack' }],
+    tags: ['Python', 'Airflow', 'AWS S3', 'Glue', 'Athena', 'Redshift', 'Docker'] },
+  { type: 'intro3' },
+  { type: 'final' }
+];
+
+var labels = ['About Me', 'Experience', 'Skills', 'How I Think', 'Case Study 01', 'Case Study 02', 'Case Study 03', 'Personal Project', 'Beyond Work', 'Contact'];
+var cur = 0;
+var deck = document.getElementById('deck');
+var dotsEl = document.getElementById('dots');
+var tabsEl = document.getElementById('topnav');
+var tabsLeftEl = null;
+var hint = document.getElementById('hint');
+
+function photoSVG() {
+  var lines = '';
+  for (var i = 0; i < 20; i++) {
+    lines += '<line x1="0" y1="' + (i*4) + '" x2="60" y2="' + (i*4-60) + '" stroke="currentColor" stroke-width="0.5" opacity="0.2"/>';
+  }
+  return '<svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="color:var(--text)">'
+    + '<rect width="60" height="60" fill="currentColor" opacity="0.05"/>' + lines + '</svg>'
+    + '<div class="intro-photo-label">photo</div>';
+}
+
+function buildCard(data, idx) {
+  var el = document.createElement('div');
+  el.className = 'card';
+  el.dataset.idx = idx;
+
+  var header = '<div class="card-header">'
+    + '<div class="card-label"><span class="label-dot"></span>{ ' + (labels[idx] || '') + ' }</div>'
+    + '<div class="card-counter">' + (idx + 1) + ' / ' + cards.length + '</div>'
+    + '</div>';
+
+  var body = '';
+
+  if (data.type === 'intro') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left" style="justify-content:space-between">'
+        + '<div>'
+          + '<div style="width:100%;aspect-ratio:1/1;border-radius:3px;overflow:hidden;margin-bottom:12px;flex-shrink:0"><img src="' + (window.__resources && window.__resources.mayPhoto ? window.__resources.mayPhoto : 'uploads/Screenshot 2025-11-08 at 9.40.50 PM.png') + '" style="width:100%;height:100%;object-fit:cover;object-position:center 15%"></div>'
+          + '<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px">'
+            + '<div class="intro-name"><em style="color:var(--text)">May</em><br><span style="color:var(--text)">Tsai</span></div>'
+            + '<div style="text-align:right;padding-bottom:4px">'
+              + '<div class="intro-title" style="margin-bottom:4px">Sr. Data Analyst</div>'
+              + '<div class="intro-location" style="margin-top:0">&#9679; Chicago, IL</div>'
+            + '</div>'
+          + '</div>'
+        + '</div>'
+      + '</div>'
+      + '<div class="panel-right" style="justify-content:flex-start;gap:0;padding-top:14px;padding-bottom:18px">'
+        + '<p class="intro-bio" style="font-size:10px;line-height:1.6;margin-bottom:0">Hi, I\'m May — a <span class=\"hl\">Senior Data Analyst</span> who turns customer and transaction data into <span class=\"hl\">measurable business decisions</span>.<br><br>I enjoy finding opportunities in customer behavior and turning them into experiments, strategies, and actionable recommendations — from defining the right hypothesis or audience to measuring results and deciding what to do next.<br><br>With <span class=\"hl\">4+ years of experience</span> across customer analytics, experimentation, predictive modeling, and measurement, my work has contributed to <span class=\"hl\">$10M+ in estimated incremental impact</span>.</p>'
+        + '<div class="intro-links" style="flex-direction:row;gap:14px;margin-top:auto;padding-top:12px;border-top:1px solid var(--text-light)">'
+          + '<a href="mailto:chichientsai.us@gmail.com">Email</a>'
+          + '<a href="https://www.linkedin.com/in/may-tsai/" target="_blank">LinkedIn</a>'
+          + '<a href="https://github.com/maytsai" target="_blank">GitHub</a>'
+        + '</div>'
+      + '</div></div>';
+
+  } else if (data.type === 'intro2') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left" style="justify-content:space-between">'
+        + '<div>'
+          + '<div class="intro-name"><em style="color:var(--text)">How</em><br><span style="color:var(--text)">I work.</span></div>'
+        + '</div>'
+        + '<div class="intro-location" style="margin-top:0">&#9679; Chicago, IL</div>'
+      + '</div>'
+      + '<div class="panel-right" style="justify-content:flex-start;gap:0;padding-top:14px;padding-bottom:18px">'
+        + '<p class="intro-bio" style="font-size:12.5px;line-height:1.95;letter-spacing:0.01em;margin-bottom:0">'
+        + 'I\'m a <span class="hl-a">builder at heart</span> with a <span class="hl-a">product and user mindset</span>. I dig into the data until something clicks. I live for the <span class="hl-a">aha moment</span>: when the data reveals something no one saw coming. Then I make sure it turns into something lasting: a process, a template, or a tool that makes every step transparent and repeatable.'
+        + '</p>'
+      + '</div></div>';
+
+  } else if (data.type === 'intro3') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left" style="justify-content:space-between">'
+        + '<div>'
+          + '<div class="intro-name"><em style="color:var(--text)">Beyond</em><br><span style="color:var(--text)">work.</span></div>'
+        + '</div>'
+        + '<div class="intro-location" style="margin-top:0">&#9679; Chicago, IL</div>'
+      + '</div>'
+      + '<div class="panel-right" style="justify-content:flex-start;gap:0;padding-top:14px;padding-bottom:18px;padding-right:10px;position:relative">'
+        + '<p class="intro-bio" style="font-size:10px;line-height:1.6;margin-bottom:0;padding-right:60px">'
+        + 'Outside of work, I\'m a <span class="hl-a">cafe explorer</span>, a <span class="hl-a">tea enthusiast</span>, a Taiwanese far from home — currently calling Chicago mine.<br><br>'
+        + 'You\'ll find me walking through museums, biking new neighborhoods, chasing <span class="hl-a">live concerts</span>, and hiking through <span class="hl-a">national parks</span> — I\'ve made it a tradition to visit one every year.'
+        + '</p>'
+        + '<div style="position:absolute;top:18px;right:14px;bottom:18px;display:flex;flex-direction:column;justify-content:flex-start;gap:14px;font-family:var(--mono);font-size:7.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);text-align:center;border-left:1px solid var(--text-light);padding-left:14px">'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">☕</div>cafe</div>'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">🍵</div>tea</div>'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">🖼️</div>museum</div>'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">🚲</div>bike</div>'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">🎶</div>music</div>'
+          + '<div><div style="font-size:18px;line-height:1;margin-bottom:4px">🏔️</div>parks</div>'
+        + '</div>'
+      + '</div></div>';
+
+  } else if (data.type === 'exp') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left">'
+        + '<div class="exp-big">Where<br>I\'ve <em>been.</em></div>'
+        + '<div class="exp-years">4 yrs experience</div>'
+      + '</div>'
+      + '<div class="panel-right"><div class="exp-list">';
+    data.items.forEach(function(it) {
+      body += '<div class="exp-item">'
+        + '<div class="exp-row"><span class="exp-company">' + it.co + '</span><span class="exp-period">' + it.period + '</span></div>'
+        + '<div class="exp-role">' + it.role + '</div>'
+        + '</div>';
+    });
+    body += '</div></div></div>';
+
+  } else if (data.type === 'skills') {
+    var groups = [
+      { label: 'Languages & Query', tags: ['SQL', 'Python', 'pandas', 'NumPy'] },
+      { label: 'Cloud & Infra', tags: ['AWS S3', 'EC2', 'Glue', 'Athena', 'Redshift', 'Azure Databricks', 'Azure Storage', 'Airflow', 'DuckDB', 'Docker', 'Git'] },
+      { label: 'Visualization', tags: ['Power BI', 'Tableau', 'Looker', 'Excel'] },
+      { label: 'Experimentation', tags: ['A/B Testing', 'Causal Inference', 'DiD', 'Incrementality', 'Cohort Analysis'] },
+      { label: 'Analytical Approach', tags: ['Hypothesis-Driven Insights', 'Storytelling', 'Decision Framing'] },
+      { label: 'Growth & Product', tags: ['Segmentation', 'Customer Journey', 'User Behavior', 'Retention', 'Acquisition'] }
+    ];
+    body = '<div class="card-body">'
+      + '<div class="panel-left">'
+        + '<div class="skills-big">What<br>I <em>use.</em></div>'
+        + '<div class="skills-count">20+ tools</div>'
+      + '</div>'
+      + '<div class="panel-right" style="padding-top:14px;padding-bottom:14px">'
+      + '<div class="skill-groups" style="display:grid;grid-template-columns:1fr 1fr;gap:10px 16px">';
+    groups.forEach(function(g) {
+      body += '<div class="skill-group"><div class="skill-group-label">' + g.label + '</div>'
+        + '<div class="skill-tags">';
+      g.tags.forEach(function(t) { body += '<span class="skill-tag">' + t + '</span>'; });
+      body += '</div></div>';
+    });
+    body += '</div></div></div>';
+
+  } else if (data.type === 'think') {
+    var steps = [
+      ['Understand the Problem', 'What decision are we trying to make? What does success look like?'],
+      ['Explore Customer Behavior', 'Use transaction, behavioral, and product data to understand what is happening and identify opportunities.'],
+      ['Define the Opportunity', 'Translate the insight into a hypothesis, target audience, KPI, or experiment.'],
+      ['Design &amp; Execute', 'Partner with Product, Sales, Ops, and Data Science to define the approach, scope the audience, and execute the analysis or experiment.'],
+      ['Measure', 'Evaluate results against the right metrics and understand whether the change actually worked.'],
+      ['Recommend What\u2019s Next', 'Turn the findings into a concrete recommendation, optimization, or next experiment.']
+    ];
+    body = '<div class="card-body">'
+      + '<div class="panel-left">'
+        + '<div class="skills-big">How I<br>think about<br><em>data.</em></div>'
+        + '<div class="skills-count">6-step framework</div>'
+      + '</div>'
+      + '<div class="panel-right" style="padding-top:10px;padding-bottom:14px"><div class="think-grid">';
+    steps.forEach(function(s, i) {
+      body += '<div class="think-step"><div class="think-num">' + ('0' + (i + 1)) + '</div>'
+        + '<div class="think-title">' + s[0] + '</div><div class="think-desc">' + s[1] + '</div></div>';
+    });
+    body += '</div></div></div>';
+
+  } else if (data.type === 'proj') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left">'
+        + '<div class="proj-num">' + data.n + '</div>'
+        + '<div class="proj-title">' + data.title + '</div>'
+        + (data.sub ? '<div class="proj-sub">' + data.sub + '</div>' : '')
+        + '<div class="proj-co">' + data.co + '</div>'
+        + (data.story ? '<a href="' + data.story + '" style="font-family:var(--mono);font-size:8.5px;letter-spacing:0.12em;color:var(--text);text-decoration:none;background:#FFE500;border:1px solid var(--text);padding:5px 9px;margin-top:auto;display:block;width:fit-content;white-space:nowrap">{ read full story → }</a>' : '')
+        + (data.link ? '<a href="' + data.link + '" target="_blank" style="font-family:var(--mono);font-size:8.5px;letter-spacing:0.12em;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:1px;margin-top:auto;display:block;width:fit-content">{ github ↗ }</a>' : '')
+      + '</div>'
+      + '<div class="panel-right">'
+        + '<p class="proj-desc"' + (data.fs ? ' style="font-size:' + data.fs + '"' : '') + '>' + data.desc + '</p>';
+    if (data.takeaway) {
+      body += '<div class="proj-takeaway"><span class="tk-label">Key takeaway</span>' + data.takeaway + '</div>';
+    }
+    if (data.approach) {
+      body += '<div class="proj-approach"><span class="tk-label">My approach</span>';
+      data.approach.forEach(function(a) { body += '<div class="ap-row"><span class="ap-k">' + a[0] + '</span><span>' + a[1] + '</span></div>'; });
+      body += '</div>';
+    }
+    if (data.kpis) {
+      body += '<div class="proj-kpis">';
+      data.kpis.forEach(function(k) {
+        body += '<div class="kpi"><div class="kpi-val">' + k.v + '</div><div class="kpi-label">' + k.l + '</div></div>';
+      });
+      body += '</div>';
+    }
+    if (data.tags) {
+      body += '<div class="proj-tags">';
+      data.tags.forEach(function(t) { body += '<span class="proj-tag">' + t + '</span>'; });
+      body += '</div>';
+    }
+    body += '</div></div>';
+
+  } else if (data.type === 'final') {
+    body = '<div class="card-body">'
+      + '<div class="panel-left final-left">'
+      + '<div class="final-headline">What\'s<br><em>next?</em></div>'
+      + '</div>'
+      + '<div class="panel-right final-right" style="justify-content:center">'
+        + '<p class="final-sub">If something resonated, let\'s talk.</p>'
+        + '<div style="margin-top:16px">'
+        + '<div style="font-family:var(--mono);font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px">{ let&#39;s connect }</div>'
+        + '<a class="final-email" href="mailto:chichientsai.us@gmail.com">chichientsai.us@gmail.com</a>'
+        + '<div style="display:flex;gap:14px;margin-top:10px">'
+          + '<a class="final-email" href="https://www.linkedin.com/in/may-tsai/" target="_blank">LinkedIn ↗</a>'
+          + '<a class="final-email" href="https://github.com/maytsai" target="_blank">GitHub ↗</a>'
+        + '</div>'
+        + '</div>'
+        + '<a href="' + (window.__resources && window.__resources.mayResume ? window.__resources.mayResume : 'May_Tsai_Resume.pdf') + '" download="May_Tsai_Resume.pdf" style="display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:12px 18px;background:var(--text);color:var(--card-bg);font-family:var(--mono);font-size:10px;letter-spacing:0.12em;text-decoration:none;border-radius:2px;width:100%"><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#FFE500;flex-shrink:0"><span style="width:5px;height:5px;border-radius:50%;background:var(--text);display:block"></span></span><span>Download resume</span></span><span style="color:#e6b800">→</span></a>'
+      + '</div></div>';
+  }
+
+  el.innerHTML = header + body;
+  return el;
+}
+
+function renderDots() {
+  dotsEl.innerHTML = '';
+  cards.forEach(function(_, i) {
+    var d = document.createElement('div');
+    d.className = 'dot' + (i === cur ? ' on' : '');
+    d.onclick = function() { goTo(i, i > cur ? 'next' : 'prev'); };
+    dotsEl.appendChild(d);
+  });
+}
+
+function renderTabs() {
+  tabsEl.innerHTML = '';
+  var defs = [
+    { label: 'About', idx: 0, range: [0, 0], num: '01' },
+    { label: 'Experience', idx: 1, range: [1, 1], num: '02' },
+    { label: 'Skills', idx: 2, range: [2, 2], num: '03' },
+    { label: 'Approach', idx: 3, range: [3, 3], num: '04' },
+    { label: 'Case Study', idx: 4, range: [4, 6], num: '05' },
+    { label: 'Personal Project', idx: 7, range: [7, 7], num: '06' },
+    { label: 'Beyond Work', idx: 8, range: [8, 8], num: '07' },
+    { label: 'Contact', idx: 9, range: [9, 9], num: '08' }
+  ];
+  var brand = document.createElement('div');
+  brand.className = 'topnav-brand';
+  brand.textContent = 'May Tsai · Index';
+  tabsEl.appendChild(brand);
+  var wrap = document.createElement('div');
+  wrap.className = 'topnav-items';
+  defs.forEach(function(def) {
+    var t = document.createElement('div');
+    var active = cur >= def.range[0] && cur <= def.range[1];
+    t.className = 'topnav-item' + (active ? ' on' : '');
+    t.innerHTML = '<span class="num">' + def.num + '</span><span>' + def.label + '</span>';
+    t.onclick = function() { goTo(def.idx, def.idx > cur ? 'next' : 'prev'); };
+    wrap.appendChild(t);
+  });
+  tabsEl.appendChild(wrap);
+}
+
+function renderDeck() {
+  deck.innerHTML = '';
+  for (var offset = Math.min(2, cards.length - 1 - cur); offset >= 0; offset--) {
+    var idx = cur + offset;
+    if (idx >= cards.length) continue;
+    var el = buildCard(cards[idx], idx);
+    el.dataset.pos = offset;
+    deck.appendChild(el);
+  }
+  renderDots();
+  renderTabs();
+  setupDrag(deck.querySelector('[data-pos="0"]'));
+}
+
+function goTo(idx, dir) {
+  if (idx < 0 || idx >= cards.length) return;
+  var top = deck.querySelector('[data-pos="0"]');
+  if (!top) return;
+  top.classList.add(dir === 'next' ? 'fly-left' : 'fly-right');
+  setTimeout(function() { cur = idx; renderDeck(); }, 420);
+  hint.classList.add('gone');
+}
+
+document.getElementById('nextBtn').onclick = function() { if (cur < cards.length - 1) goTo(cur + 1, 'next'); };
+document.getElementById('prevBtn').onclick = function() { if (cur > 0) goTo(cur - 1, 'prev'); };
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'ArrowRight' && cur < cards.length - 1) goTo(cur + 1, 'next');
+  if (e.key === 'ArrowLeft' && cur > 0) goTo(cur - 1, 'prev');
+});
+
+function setupDrag(el) {
+  if (!el) return;
+  var startX = 0, dx = 0, active = false;
+  function getX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  function onStart(e) { active = true; startX = getX(e); el.classList.add('dragging'); }
+  function onMove(e) {
+    if (!active) return;
+    dx = getX(e) - startX;
+    el.style.transform = 'translateX(' + dx + 'px) rotate(' + (dx * 0.03) + 'deg)';
+  }
+  function onEnd() {
+    if (!active) return; active = false; el.classList.remove('dragging');
+    if (dx < -80 && cur < cards.length - 1) goTo(cur + 1, 'next');
+    else if (dx > 80 && cur > 0) goTo(cur - 1, 'prev');
+    else el.style.transform = '';
+    dx = 0;
+  }
+  el.addEventListener('mousedown', onStart);
+  el.addEventListener('touchstart', onStart, { passive: true });
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('touchmove', onMove, { passive: true });
+  window.addEventListener('mouseup', onEnd);
+  window.addEventListener('touchend', onEnd);
+}
+
+function setTheme(t) {
+  document.body.setAttribute('data-theme', t);
+  document.querySelectorAll('.theme-opt').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.t === t);
+  });
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { theme: t } }, '*');
+}
+
+var panel = document.getElementById('tweaks-panel');
+document.getElementById('tweaksClose').onclick = function() {
+  panel.classList.remove('visible');
+  window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+};
+document.querySelectorAll('.theme-opt').forEach(function(btn) {
+  btn.onclick = function() { setTheme(btn.dataset.t); };
+});
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.type === '__activate_edit_mode') panel.classList.add('visible');
+  if (e.data && e.data.type === '__deactivate_edit_mode') panel.classList.remove('visible');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+setTheme(TWEAK_DEFAULTS.theme || 'noir');
+(function(){ var m = location.hash.match(/^#card-(\d+)$/); if (m) { var n = +m[1]; if (n > 0 && n < cards.length) cur = n; } })();
+renderDeck();
+setTimeout(function() { hint.classList.add('gone'); }, 4500);
+
+// Scale deck to fit viewport
+var CARD_W_DESKTOP = 680, CARD_H_DESKTOP = 420;
+var CARD_W_MOBILE = 420, CARD_H_MOBILE = 620;
+var CARD_W = CARD_W_DESKTOP, CARD_H = CARD_H_DESKTOP;
+function scaleDeck() {
+  var vw = window.innerWidth, vh = window.innerHeight;
+  if (!vh || vh < 200 || !vw) return;
+  var isMobile = vw < 720;
+  CARD_W = isMobile ? CARD_W_MOBILE : CARD_W_DESKTOP;
+  CARD_H = isMobile ? CARD_H_MOBILE : CARD_H_DESKTOP;
+  var navH = isMobile ? 70 : 100;
+  var availW = vw * (isMobile ? 0.96 : 0.86);
+  var availH = (vh - navH) * (isMobile ? 0.94 : 0.84);
+  var maxScale = isMobile ? 1.2 : 1.8;
+  var scale = Math.max(0.2, Math.min(availW / CARD_W, availH / CARD_H, maxScale));
+  deck.style.transform = 'scale(' + scale + ')';
+  deck.style.transformOrigin = 'center center';
+  deck.style.width = CARD_W + 'px';
+  deck.style.height = CARD_H + 'px';
+  deck.style.position = 'relative';
+}
+scaleDeck();
+// Use visualViewport to avoid jumps when mobile address bar shows/hides
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', scaleDeck);
+} else {
+  window.addEventListener('resize', scaleDeck);
+}
+window.addEventListener('orientationchange', function() { setTimeout(scaleDeck, 100); });
+window.addEventListener('load', scaleDeck);
+window.addEventListener('resize', scaleDeck);
+if (window.ResizeObserver) { new ResizeObserver(scaleDeck).observe(document.body); }
+</script>
+</body>
+</html>

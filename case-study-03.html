@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Case Study 03 — Using Predictive Modeling to Prioritize Customers · May Tsai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f5f1ea;--card:#faf8f3;--text:#0a0a0a;--muted:#6b665f;--line:#c4bfb8;--y:#FFE500;--yh:rgba(230,184,0,0.25);--serif:'DM Serif Display',Georgia,serif;--mono:'DM Mono','Courier New',monospace}
+html{background:var(--bg)}
+body{font-family:var(--mono);color:var(--text);background:var(--bg);background-image:linear-gradient(rgba(0,0,0,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,0.06) 1px,transparent 1px);background-size:28px 28px;-webkit-font-smoothing:antialiased}
+a{color:var(--text)}a:hover{background:var(--yh)}
+.hl{background:var(--yh);padding:0 3px;font-weight:500}
+.top{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 28px;background:var(--bg);border-bottom:1.5px solid var(--text);font-size:10px;letter-spacing:0.16em;text-transform:uppercase}
+.top a{text-decoration:none;display:flex;align-items:center;gap:8px}
+.top .brand{color:var(--muted)}
+.wrap{max-width:920px;margin:0 auto;padding:56px 28px 80px}
+.sheet{background:var(--card);border:1.5px solid var(--text);box-shadow:8px 8px 0 var(--text)}
+.hero{padding:48px 48px 40px;border-bottom:1.5px solid var(--text);position:relative;overflow:hidden}
+.kicker{display:flex;gap:14px;align-items:center;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:28px}
+.kicker .dot{width:9px;height:9px;border-radius:50%;background:var(--y);border:1.5px solid var(--text)}
+.bignum{position:absolute;right:28px;top:14px;font-family:var(--serif);font-size:180px;line-height:1;color:rgba(230,184,0,0.4);pointer-events:none}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,64px);line-height:1.02;letter-spacing:-0.01em;max-width:14ch;position:relative;text-wrap:balance}
+h1 em{font-style:italic}
+.dek{margin-top:22px;font-size:13px;line-height:1.7;max-width:56ch;position:relative;text-wrap:pretty}
+.sec{display:grid;grid-template-columns:180px minmax(0,1fr);gap:32px;padding:40px 48px;border-bottom:1px solid var(--line)}
+.sec:last-child{border-bottom:none}
+.lab{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);padding-top:6px}
+.lab b{display:block;color:var(--text);font-weight:500;margin-bottom:4px}
+h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.1;margin-bottom:16px}
+p{font-size:12.5px;line-height:1.85;max-width:62ch;text-wrap:pretty}
+p+p{margin-top:14px}
+.q{margin:22px 0 4px;padding:18px 22px;background:var(--y);border:1.5px solid var(--text);font-family:var(--serif);font-size:22px;line-height:1.25;max-width:30ch}
+.q small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px}
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:64px minmax(0,1fr);gap:20px;padding:28px 0;border-top:1px solid var(--line)}
+.step:first-child{border-top:none;padding-top:0}
+.step .n{font-family:var(--serif);font-size:44px;line-height:0.9;color:rgba(230,184,0,0.9);-webkit-text-stroke:1px var(--text)}
+.step h3{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.15;margin-bottom:12px}
+.ql{list-style:none;margin-top:16px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.ql li{font-size:11.5px;line-height:1.5;padding:10px 12px;border:1px solid var(--text);background:var(--bg)}
+.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border:1.5px solid var(--text);margin-bottom:22px}
+.kpi{padding:22px 24px}
+.kpi+.kpi{border-left:1.5px solid var(--text)}
+.kpi .v{font-family:var(--serif);font-size:56px;line-height:1}
+.kpi .l{margin-top:8px;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted)}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:18px 0 22px}
+.chain span{font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--text);background:var(--card)}
+.chain i{font-style:normal;color:var(--muted)}
+.chain span:last-child{background:var(--y)}
+.end{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;font-size:10px;letter-spacing:0.16em;text-transform:uppercase}
+.end a{text-decoration:none;padding:12px 18px;border:1.5px solid var(--text);background:var(--card)}
+.end a.primary{background:var(--text);color:var(--card)}
+.end a.primary:hover{background:#333}
+@media (max-width:720px){
+.top{padding:12px 16px;font-size:9px}.top .brand{display:none}
+.wrap{padding:28px 14px 56px}
+.sheet{box-shadow:5px 5px 0 var(--text)}
+.hero{padding:32px 22px 28px}.bignum{font-size:110px;right:12px}
+.sec{grid-template-columns:1fr;gap:12px;padding:28px 22px}
+.step{grid-template-columns:1fr;gap:8px}.step .n{font-size:34px}
+.ql{grid-template-columns:1fr}
+.kpi{padding:16px}.kpi .v{font-size:40px}
+.q{font-size:19px}
+}
+</style>
+</head>
+<body>
+<nav class="top"><a href="index.html#card-6">← Back to portfolio</a><span class="brand">May Tsai · Case Study 03</span></nav>
+<main class="wrap">
+<article class="sheet">
+<header class="hero" data-screen-label="Hero">
+<div class="bignum">03</div>
+<div class="kicker"><span class="dot"></span><span>Case Study 03 · Infillion Catalina</span></div>
+<h1>Using Predictive Modeling to <em>Prioritize Customers</em></h1>
+<p class="dek">From propensity model outputs to a targeted customer strategy that identified <span class="hl">4× lift among the highest-potential customers</span>.</p>
+</header>
+<section class="sec" data-screen-label="Challenge">
+<div class="lab"><b>§ 1</b>The Challenge</div>
+<div>
+<p>The business wanted to identify customers who were most likely to adopt a new product and determine how predictive insights could inform a more focused targeting strategy.</p>
+<p>Rather than treating the model output as the end result, I focused on a practical business question:</p>
+<div class="q"><small>The question</small>Can predictive signals help us identify where the strongest opportunity exists?</div>
+<p style="margin-top:22px">The goal was to evaluate the model's ability to differentiate customer potential and translate those insights into an actionable customer strategy.</p>
+</div>
+</section>
+<section class="sec" data-screen-label="Approach">
+<div class="lab"><b>§ 2</b>My Approach</div>
+<div class="steps">
+<div class="step"><div class="n">01</div><div>
+<h3>Evaluate the Model</h3>
+<p>I analyzed propensity model outputs across customer segments to understand how effectively the model differentiated customers based on their likelihood of adopting the new product.</p>
+<p>Rather than focusing only on overall model performance, I evaluated <span class="hl">lift across ranked customer groups</span> to understand whether the model could meaningfully identify higher-potential customers.</p>
+</div></div>
+<div class="step"><div class="n">02</div><div>
+<h3>Identify High-Potential Customers</h3>
+<p>The analysis showed a clear concentration of potential among the highest-ranked customers.</p>
+<p>Customers in the <span class="hl">top 10% of the propensity ranking showed approximately 4× lift</span> compared with the broader customer population.</p>
+<p>This provided a data-driven basis for prioritizing customers rather than treating the entire population equally.</p>
+</div></div>
+<div class="step"><div class="n">03</div><div>
+<h3>Translate Insights Into Strategy</h3>
+<p>I translated the model insights into a practical customer targeting strategy, working across Business, Data Science, and Client teams to connect the analytical findings with business priorities.</p>
+<p>The key question shifted from:</p>
+<ul class="ql"><li>&ldquo;Who is most likely to adopt?&rdquo;</li><li style="background:var(--y)">&ldquo;Who should we prioritize based on the opportunity?&rdquo;</li></ul>
+<p style="margin-top:16px">This helped bridge the gap between predictive modeling and business decision-making.</p>
+</div></div>
+<div class="step"><div class="n">04</div><div>
+<h3>Inform Targeting</h3>
+<p>Based on the observed lift and business considerations, the analysis supported a more focused targeting approach.</p>
+<p>Rather than broadly targeting the full customer base, the business could prioritize customers where the predictive signal indicated stronger potential.</p>
+<p>The model therefore became more than a score — it became an input into <span class="hl">customer prioritization and strategy</span>.</p>
+</div></div>
+</div>
+</section>
+<section class="sec" data-screen-label="Impact">
+<div class="lab"><b>§ 3</b>The Impact</div>
+<div>
+<div class="kpis" style="grid-template-columns:1fr"><div class="kpi"><div class="v">4×</div><div class="l">Lift among top 10% of customers</div></div></div>
+<p>The analysis demonstrated that predictive modeling could meaningfully differentiate customer potential and provide a data-driven basis for prioritizing high-opportunity customers.</p>
+<p>It also helped translate a technical model output into a business strategy that could be understood and acted upon by <span class="hl">non-technical stakeholders</span>.</p>
+</div>
+</section>
+<section class="sec" data-screen-label="Takeaway">
+<div class="lab"><b>§ 4</b>What I Took Away</div>
+<div>
+<p>The value of predictive modeling is not simply producing a score. It is using that score to make a better decision. For me, the process was:</p>
+<div class="chain"><span>Model Output</span><i>→</i><span>Lift</span><i>→</i><span>Prioritize</span><i>→</i><span>Strategy</span></div>
+<p>The most valuable predictive analytics work connects model insights back to a clear business question:</p>
+<div class="q"><small>The real question</small>What should we do differently now that we know where the strongest opportunity exists?</div>
+</div>
+</section>
+</article>
+<div class="end"><a href="index.html#card-6">← Back to portfolio</a><a class="primary" href="mailto:chichientsai.us@gmail.com">Let's talk →</a></div>
+</main>
+</body>
+</html>
